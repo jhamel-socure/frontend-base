@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+}
+
+button {
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
