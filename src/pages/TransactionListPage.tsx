@@ -1,32 +1,7 @@
-import { useState, useEffect } from 'react'
-import type { TransactionListResponse } from '../types/transactions'
+import { useTransactionList } from '../hooks/useTransactionsData'
 
 export default function TransactionListPage() {
-  const [data, setData] = useState<TransactionListResponse | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    setLoading(true)
-    setError(null)
-    fetch('/api/transactions')
-      .then((res) => res.json())
-      .then((json: TransactionListResponse) => {
-        if (!cancelled) setData(json)
-      })
-      .catch((e: Error) => {
-        if (!cancelled) setError(e.message)
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-    return () => { cancelled = true }
-  }, [])
-
-  if (loading) return <p>Loading…</p>
-  if (error) return <p style={{ color: '#c00' }}>{error}</p>
-  if (!data) return null
+  const { data, loading, error } = useTransactionList()
 
   return (
     <div style={{ padding: 24, maxWidth: 900, margin: '0 auto' }}>
